@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Fingerprint WebAPI Test App</title>
+   
+    <link rel="stylesheet" href="./bootstrap-min.css">
+    <link rel="stylesheet" href="./app.css" type="text/css" />
+</head>
+<body>
+    <div id="Container">
+      <nav style="background: linear-gradient(to right, #9C27B0, #1976D2); padding: 15px">
+        <h3 style="text-align: center; color: white; padding: 0; margin: 0;">Enter Finger Print</h3>
+      </nav>
+      <div id="Scores">
+          <h5>Scan Quality : <input type="text" id="qualityInputBox" size="20" style="background-color:#DCDCDC;text-align:center;"></h5> 
+      </div>
+      <div id="content-reader">  
+        <h4>Select Reader :</h4>
+        <select class="form-control" id="readersDropDown" onchange="selectChangeEvent()">
+        </select>
+        <div id="readerDivButtons">
+          <table width=70% align="center">
+            <tr>
+              <td>
+                  <input type="button" class="btn" style="background: #1976D2; color: white;" id="refreshList" value="Refresh List" 
+                      onclick="Javascript:readersDropDownPopulate(false)">
+              </td>
+              <td style="opacity: 0;"> 
+                  <input type="button" class="btn" style="background: #1976D2; color: white;" id="capabilities" value="Capabilities"
+                  data-toggle="modal" data-target="#myModal" onclick="Javascript:populatePopUpModal()">
+              </td>  
+            </tr>
+          </table>
+
+          <!-- Modal - Pop Up window content-->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content -->
+              <div class="modal-content" id="modalContent" >
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Reader Information</h4>
+                </div>
+                <div class="modal-body" id="ReaderInformationFromDropDown">
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div id="content-capture">    
+          <div id="status"></div>            
+          <div id="imagediv"></div>
+          <div id="contentButtons">
+              <table width=70% align="center">
+                  <tr>
+                      <td style="opacity: 0;">
+                          <input type="button" class="btn" style="background: #1976D2; color: white;" id="clearButton" value="Clear" onclick="Javascript:onClear()">
+                      </td>
+                      <!-- <td data-toggle="tooltip" title="Will work with the .png format.">
+                          <input type="button" class="btn" style="background: #1976D2; color: white;" id="save" value="Save">
+                      </td> -->
+                      <td>
+                          <input type="button" class="btn" style="background: #1976D2; color: white;" id="start" value="Start" onclick="Javascript:onStart()">
+                      </td>
+                      <td>
+                          <input type="button" class="btn" style="background: #1976D2; color: white;" id="stop" value="Stop" onclick="Javascript:onStop()">
+                      </td>
+                      <td style="opacity: 0;">
+                          <input type="button" class="btn" style="background: #1976D2; color: white;" id="info" value="Info" onclick="Javascript:onGetInfo()">
+                      </td>
+              </table>
+          </div>
+      
+          <div id="imageGallery">
+          </div>
+          <div id="deviceInfo">           
+          </div>
+
+          <div id="saveAndFormats">
+            
+            <form name="myForm" style ="border : solid grey;padding:5px;">
+            <b>Acquire Formats :</b><br>
+            <table>
+              <tr data-toggle="tooltip" title="Will save data to a .raw file.">
+                <td>
+                  <input type="checkbox" name="Raw" value="1" onclick="checkOnly(this)"> RAW  <br>
+                </td>
+              </tr>
+              <tr data-toggle="tooltip" title="Will save data to a Intermediate file">
+                <td>
+            <input type="checkbox" name="Intermediate" value="2" onclick="checkOnly(this)"> Feature Set<br>
+                </td>
+              </tr>
+              <tr data-toggle="tooltip" title="Will save data to a .wsq file.">
+                <td>
+            <input type="checkbox" name="Compressed" value="3" onclick="checkOnly(this)"> WSQ<br>
+                </td>
+              </tr>
+              <tr data-toggle="tooltip" title="Will save data to a .png file.">
+                <td>
+            <input type="checkbox" name="PngImage" checked="true" value="4" onclick="checkOnly(this)"> PNG
+                </td>
+              </tr>
+            </table>
+            </form>
+            <br>
+            <input type="button" class="btn" style="background: #1976D2; color: white;" id="saveImagePng" value="Export" onclick="Javascript:onImageDownload()">
+          </div>
+
+      </div>
+    </div>
+
+    <script src="./jquery.min.js"></script> 
+    <script src="./bootstrap.min.js"></script>
+    <script src="./es6-shim.js"></script>
+    <script src="./websdk.client.bundle.min.js"></script>
+    <script src="./fingerprint.sdk.min.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
